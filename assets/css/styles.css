@@ -1,0 +1,11 @@
+/*================= GLOBAL ==================*/
+
+/*================= MAIN ==================*/
+.input-group >.form-control.input-height-md {
+    min-height: calc(2.08rem + 11px);
+    height: calc(2.08rem + 11px);
+}
+
+.xl-mt {
+    margin-top: 1.5rem;
+}
