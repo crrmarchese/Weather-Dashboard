@@ -1,5 +1,3 @@
-/*================= GLOBAL ==================*/
-
 /*================= MAIN ==================*/
 .input-group >.form-control.input-height-md {
     min-height: calc(2.08rem + 11px);
@@ -31,4 +29,9 @@
 
 .uv-extreme {
     background-color: #D50000;
+}
+
+.daily-forecast .card {
+    background-color: var(--bs-blue);
+    color: var(--bs-white);
 }
