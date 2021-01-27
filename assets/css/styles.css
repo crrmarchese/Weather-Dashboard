@@ -9,3 +9,26 @@
 .xl-mt {
     margin-top: 1.5rem;
 }
+.uv-low, .uv-high, .uv-very-high, .uv-extreme {
+    color: var(--bs-white);
+}  
+
+.uv-low {
+    background-color: var(--bs-green);
+}
+
+.uv-moderate {
+    background-color: var(--bs-yellow);
+}
+
+.uv-high {
+    background-color: var(--bs-orange);
+}
+
+.uv-very-high {
+    background-color: #E53935;
+}
+
+.uv-extreme {
+    background-color: #D50000;
+}

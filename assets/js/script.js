@@ -1,20 +1,20 @@
 $(document).ready(function(){
 // Get current month, date and day and set the date format
 const currentMonth = (dayjs().format("MM"));
-const dayOfWeek = (dayjs().format("dddd"));
+// const dayOfWeek = (dayjs().format("dddd"));
 const dayOfMonth = (dayjs().format("D"));
 const currentYear = (dayjs().format("YYYY"));
 
 
 // Return the current day, month and day 
-$("#currentDay").text(dayOfWeek + ", "+ currentMonth + "/" + dayOfMonth + "/" + currentYear);
+$("#currentDay").text(currentMonth + "/" + dayOfMonth + "/" + currentYear);
 
     $("#button-search").click(function(){
         
         var weatherCity ="https://api.openweathermap.org/data/2.5/weather";
         var uvIndex = "https://api.openweathermap.org/data/2.5/onecall";
         //let city = "london";
-        let city = $("#citySearch").val();
+        let city = $("#citySearch").val().trim();;
         var APIKEY = "0cc6bbe69909a36c9e8389677b2668e8";
       
   
@@ -31,6 +31,7 @@ $("#currentDay").text(dayOfWeek + ", "+ currentMonth + "/" + dayOfMonth + "/" + 
                 $("#cityName").text(response.name);
                 $("#windSpeed").text("Wind Speed: " + response.wind.speed);
                 $("#humidity").text("Humidity: " + response.main.humidity);
+                $("#city-weather-icon").text()
                 
                 // Convert the temp to fahrenheit
                 var tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -44,13 +45,47 @@ $("#currentDay").text(dayOfWeek + ", "+ currentMonth + "/" + dayOfMonth + "/" + 
                     url: uvIndex + "?lat=" + cityLat + "&lon=" + cityLong + "&appid=" + APIKEY,
                     method: "GET"
                     }).then(function(response) {
-                         console.log(response);
-                        $("#uvIndex").text("UV Index: " + response.current.uvi);
+                         //console.log(response);
+                        $("#uvIndex").text("UV Index:");
+                        $("#uvIndexNum").text(response.current.uvi);
+                        
+                        addClassUVIndex(); 
 
                 });
             });
         
     });
-   
-    
+
+function addClassUVIndex() {
+    let uvIndex = parseFloat($("#uvIndexNum").text());
+   //console.log(typeof uvIndex);
+    if (uvIndex >=0 && uvIndex <= 2) {
+        $("#uvIndexNum").addClass("uv-low");
+    } else if (uvIndex > 2 && uvIndex <= 5) {
+        $("#uvIndexNum").addClass("uv-moderate");
+    } else if (uvIndex > 5 && uvIndex <= 7) {
+        $("#uvIndexNum").addClass("uv-high");
+    } else if (uvIndex > 7 && uvIndex <= 9){
+        $("#uvIndexNum").addClass("uv-very-high");
+    } else {
+        $("#uvIndexNum").addClass("uv-extreme");
+    }
+} 
+
+function getWeatherIcons() {
+    const weatherIconURL = "http://openweathermap.org/img/wn/";
+    const weatherIconURLSuffix = "d@2x.png";
+    const weatherIcons = {
+        clearSky: "01",
+        fewClouds: "02",
+        scatteredClouds: "03",
+        brokenClouds: "04",
+        showerRain: "09",
+        rain: "10",
+        thunderstorm: "11",
+        snow: "13",
+        mist: "50"
+    };
+}
+
 })

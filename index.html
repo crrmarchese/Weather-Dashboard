@@ -50,15 +50,18 @@
 					<!-- Row 1 for City with Temp/Humidity/Wind Speed/UV Index -->
 					<div class="row">
 						<div class="col-12">
-							<div class="card">
+							<div class="card" id="currentWeather">
 								<div class="card-body">
 									<!-- Dynamic data goes here -->
 								  <h3 class="card-title fs-4 fw-bold mt-2 mb-4 d-inline-block" id="cityName">Your city</h3>
 								  <p id="currentDay" class="d-inline-block ms-2 fs-4 fw-bold"></p>
+								  <div id="city-weather-icon" class="d-inline-block ms-2 weather-icon"><img src="//:0" alt="" /></div>
 								  <p class="card-text" id="temperature">Temperature</p>
 								  <p class="card-text" id="humidity">Humidity</p>
 								  <p class="card-text" id="windSpeed">Wind Speed</p>
-								  <p class="card-text" id="uvIndex">UV Index</p>
+								  <p class="card-text d-inline-block" id="uvIndex">UV Index</p>
+								  <p class="card-text d-inline-block p-2 rounded" id=uvIndexNum></p>
+								  <p></p>
 								</div>
 							</div>
 						</div>
