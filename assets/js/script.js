@@ -9,18 +9,46 @@ $(document).ready(function(){
 let now = dayjs();
 let currentDayVal = (now.format("MM/DD/YYYY"));
 
+let searchHistory = $(".city-searched");
+
 
 // Return the current day, month and day 
 $("#currentDay").text(currentDayVal);
 
-    //When the search button is clicked
+// Initialize
+  init();
+
+ // Initialize Function
+    function init() {
+    $("#five-day-forecast").addClass("d-none");
+
+    }
+
+    // Trigger a Button Click on Enter
+    // let searchInput = document.getElementById("citySearch");
+    //     searchInput.addEventListener("keydown", function(event) {
+    //         // Number 13 is the "Enter" key on keyboard
+    //         if (event.key === 13) {
+    //             // Cancel the default action, if needed
+    //             event.preventDefault();
+    //             // Trigger the button element with a click
+    //             document.getElementById("button-search").click();
+    //           }
+    //     });
+
+    // When the search button is clicked
     $("#button-search").click(function(){
-        
+
+        // Show 5 Day forecast cards
+        $("#five-day-forecast").removeClass("d-none");
+
         var weatherCity ="https://api.openweathermap.org/data/2.5/weather";
         var uvIndex = "https://api.openweathermap.org/data/2.5/onecall";
         //let city = "london";
         let city = $("#citySearch").val().trim();
         var APIKEY = "0cc6bbe69909a36c9e8389677b2668e8";
+
+        if (city === "") return;
       
         // Get data from weather API call
         $.ajax({
@@ -145,12 +173,15 @@ $("#currentDay").text(currentDayVal);
                      let kelvinForecastDay5 = ((response.daily[4].temp.day - 273.15) * 1.80 + 32).toFixed(2);
                      $(".day5-forecast-temp").text("Temp: " + kelvinForecastDay5 + " °F");
                      $(".day5-forecast-humidity").text("Humidity: " + response.daily[4].humidity + "%");
-
-                   
                        
                 });
 
+                // // Use .setItem() to store object in storage and JSON.stringify to convert it as a string. Stores the new search in the 0 index.
 
+                    let storeObj = {"citysearchlist":city};
+                    localStorage.setItem("weatherDash" + 0, JSON.stringify(storeObj));
+                    $("#city-list").prepend('<li class="list-group-item city-searched">' + city + '</li>');
+                
 
             });
         
@@ -170,8 +201,20 @@ $("#currentDay").text(currentDayVal);
         } else {
             $("#uvIndexNum").addClass("uv-extreme");
         }
-    }
-    
+    } 
+
+    // function renderCityList() {
+    //     // Use JSON.parse() to convert text to JavaScript object
+    //     var lastGrade = JSON.parse(localStorage.getItem(storeObj));
+    //     // Check if data is returned, if not exit out of the function
+    //     if (lastGrade !== null) {
+    //     document.getElementById("saved-name").innerHTML = lastGrade.student;
+    //     document.getElementById("saved-grade").innerHTML = lastGrade.grade;
+    //     document.getElementById("saved-comment").innerHTML = lastGrade.comment;
+    //     } else {
+    //       return;
+    //     }
+    //   }
    
 
 });
