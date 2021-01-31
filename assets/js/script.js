@@ -1,9 +1,4 @@
 $(document).ready(function(){
-// Get current month, date and day and set the date format
-//const currentMonth = (dayjs().format("MM"));
-// const dayOfWeek = (dayjs().format("dddd"));
-//const dayOfMonth = (dayjs().format("D"));
-//const currentYear = (dayjs().format("YYYY"));
 
 // Reference https://zetcode.com/javascript/dayjs/
 let now = dayjs();
@@ -22,16 +17,9 @@ $("#currentDay").text(currentDayVal);
  // Initialize Function
     function init() {
     // Show five day forecast container that is hidden    
-        $("#five-day-forecast").addClass("d-none");
+        $("#five-day-forecast").addClass("d-none"); 
 
-    // Get cities search history from localStorage
-     //   var storedCityList = JSON.parse(localStorage.getItem("citysearchlist"));    
-
-        }
-    // If citysearchlist was retrieved from localStorage, update the cityStorageList array to it
-        //if (storedCityList !== null) {
-         //   cityStorageList = storedCityList;
-        //}    
+        }  
 
     // Trigger a Button Click on Enter
     let searchInput = document.getElementById("citySearch");
@@ -43,7 +31,6 @@ $("#currentDay").text(currentDayVal);
                 // Trigger the button element with a click
                 document.getElementById("button-search").click();
               }
-            // console.log(event);
         });
        
     // When the search button is clicked
@@ -54,7 +41,6 @@ $("#currentDay").text(currentDayVal);
 
         var weatherCity ="https://api.openweathermap.org/data/2.5/weather";
         var uvIndex = "https://api.openweathermap.org/data/2.5/onecall";
-        //let city = "london";
         let city = $("#citySearch").val().trim();
         var APIKEY = "0cc6bbe69909a36c9e8389677b2668e8";
 
@@ -65,10 +51,6 @@ $("#currentDay").text(currentDayVal);
             url: weatherCity + "?q=" + city + "&" + "APPID=" + APIKEY,
             method: "GET"
             }).then(function(response) {
-                // Log the queryURL
-                // console.log(queryURL);
-                // Log the resulting object
-                // console.log(response);
 
                 // Transfer content to HTML
                 $("#cityName").text(response.name);
@@ -130,7 +112,7 @@ $("#currentDay").text(currentDayVal);
                     url: uvIndex + "?lat=" + cityLat + "&lon=" + cityLong + "&appid=" + APIKEY,
                     method: "GET"
                     }).then(function(response) {
-                         console.log(response);
+                        
                         $("#uvIndex").text("UV Index:");
                         $("#uvIndexNum").text(response.current.uvi);
                         
@@ -186,15 +168,12 @@ $("#currentDay").text(currentDayVal);
                        
                 });
 
-                // // Use .setItem() to store object in storage and JSON.stringify to convert it as a string. Stores the new search in the 0 index.
+                 // Use .setItem() to store object in storage and JSON.stringify to convert it as a string. Stores the new search in the 0 index.
 
                     let storeObj = {"citysearchlist":city};
                     localStorage.setItem("weatherDash" + 0, JSON.stringify(storeObj));
                     $("#city-list").prepend('<li class="list-group-item city-searched">' + city + '</li>');
                
-                // Read data from local storage
-                //  var citiesStored = localStorage.getItem("citysearchlist");
-                // $("#city-list").html()
 
             });
         
@@ -215,19 +194,6 @@ $("#currentDay").text(currentDayVal);
             $("#uvIndexNum").addClass("uv-extreme");
         }
     } 
-
-    // function renderCityList() {
-    //     // Use JSON.parse() to convert text to JavaScript object
-    //     var lastGrade = JSON.parse(localStorage.getItem(storeObj));
-    //     // Check if data is returned, if not exit out of the function
-    //     if (lastGrade !== null) {
-    //     document.getElementById("saved-name").innerHTML = lastGrade.student;
-    //     document.getElementById("saved-grade").innerHTML = lastGrade.grade;
-    //     document.getElementById("saved-comment").innerHTML = lastGrade.comment;
-    //     } else {
-    //       return;
-    //     }
-    //   }
 
  // Initialize
  init();  
