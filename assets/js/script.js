@@ -5,37 +5,47 @@ $(document).ready(function(){
 //const dayOfMonth = (dayjs().format("D"));
 //const currentYear = (dayjs().format("YYYY"));
 
-//Reference https://zetcode.com/javascript/dayjs/
+// Reference https://zetcode.com/javascript/dayjs/
 let now = dayjs();
 let currentDayVal = (now.format("MM/DD/YYYY"));
 
+// Class name for <li> items in city search history list
 let searchHistory = $(".city-searched");
 
+// Array to hold city search list in storage
+//var cityStorageList = [];
 
 // Return the current day, month and day 
 $("#currentDay").text(currentDayVal);
 
-// Initialize
-  init();
 
  // Initialize Function
     function init() {
-    $("#five-day-forecast").addClass("d-none");
+    // Show five day forecast container that is hidden    
+        $("#five-day-forecast").addClass("d-none");
 
-    }
+    // Get cities search history from localStorage
+     //   var storedCityList = JSON.parse(localStorage.getItem("citysearchlist"));    
+
+        }
+    // If citysearchlist was retrieved from localStorage, update the cityStorageList array to it
+        //if (storedCityList !== null) {
+         //   cityStorageList = storedCityList;
+        //}    
 
     // Trigger a Button Click on Enter
-    // let searchInput = document.getElementById("citySearch");
-    //     searchInput.addEventListener("keydown", function(event) {
-    //         // Number 13 is the "Enter" key on keyboard
-    //         if (event.key === 13) {
-    //             // Cancel the default action, if needed
-    //             event.preventDefault();
-    //             // Trigger the button element with a click
-    //             document.getElementById("button-search").click();
-    //           }
-    //     });
-
+    let searchInput = document.getElementById("citySearch");
+        searchInput.addEventListener("keypress", function(event) {
+            // Number 13 is the "Enter" key on keyboard
+            if (event.key === "Enter") {
+                // Cancel the default action, if needed
+               event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("button-search").click();
+              }
+            // console.log(event);
+        });
+       
     // When the search button is clicked
     $("#button-search").click(function(){
 
@@ -181,7 +191,10 @@ $("#currentDay").text(currentDayVal);
                     let storeObj = {"citysearchlist":city};
                     localStorage.setItem("weatherDash" + 0, JSON.stringify(storeObj));
                     $("#city-list").prepend('<li class="list-group-item city-searched">' + city + '</li>');
-                
+               
+                // Read data from local storage
+                //  var citiesStored = localStorage.getItem("citysearchlist");
+                // $("#city-list").html()
 
             });
         
@@ -215,6 +228,8 @@ $("#currentDay").text(currentDayVal);
     //       return;
     //     }
     //   }
-   
+
+ // Initialize
+ init();  
 
 });
