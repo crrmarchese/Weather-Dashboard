@@ -71,7 +71,7 @@ $("#currentDay").text(currentDayVal);
                 // Get weather icon for current day
                 let weatherIconRes = (response.weather[0].description).toLowerCase();
 
-                const weatherIconURL = "http://openweathermap.org/img/wn/";
+                const weatherIconURL = "https://openweathermap.org/img/wn/";
                 const weatherIconURLSuffix = "@2x.png";
                 const weatherIcons = {
                     clearSky: "01d",
