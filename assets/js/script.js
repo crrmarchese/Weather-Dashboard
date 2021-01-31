@@ -130,7 +130,7 @@ $("#currentDay").text(currentDayVal);
                     url: uvIndex + "?lat=" + cityLat + "&lon=" + cityLong + "&appid=" + APIKEY,
                     method: "GET"
                     }).then(function(response) {
-                        // console.log(typeof response.daily[0].weather[0].icon);
+                         console.log(response);
                         $("#uvIndex").text("UV Index:");
                         $("#uvIndexNum").text(response.current.uvi);
                         
