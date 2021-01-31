@@ -10,4 +10,4 @@ A weather dashboard where the user can type in a city name and get the current d
 
 ## URL
 
-https://crrmarchese.github.io/Password-Generator/
+https://crrmarchese.github.io/Weather-Dashboard/
