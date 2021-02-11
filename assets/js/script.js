@@ -7,8 +7,6 @@ let currentDayVal = (now.format("MM/DD/YYYY"));
 // Class name for <li> items in city search history list
 let searchHistory = $(".city-searched");
 
-// Array to hold city search list in storage
-//var cityStorageList = [];
 
 // Return the current day, month and day 
 $("#currentDay").text(currentDayVal);
@@ -19,7 +17,15 @@ $("#currentDay").text(currentDayVal);
     // Show five day forecast container that is hidden    
         $("#five-day-forecast").addClass("d-none"); 
 
-        }  
+         // Get cities search history from localStorage
+       let storedCityList = JSON.parse(localStorage.getItem("storedSearchHistory")); 
+       
+       // Loop through cities in local storage and display them on page at load time
+       storedCityList.forEach(function(city){
+        $("#city-list").prepend('<li class="list-group-item city-searched">' + city + '</li>');
+        });
+       
+    }  
 
     // Trigger a Button Click on Enter
     let searchInput = document.getElementById("citySearch");
@@ -168,11 +174,16 @@ $("#currentDay").text(currentDayVal);
                        
                 });
 
-                 // Use .setItem() to store object in storage and JSON.stringify to convert it as a string. Stores the new search in the 0 index.
+                    // Check local storage to see if there are items or if the array is empty
+                    let cities = JSON.parse(localStorage.getItem("storedSearchHistory")) || [];
+                    // Add a new city to the cities array from local storage
+                    cities.push(city);
 
-                    let storeObj = {"citysearchlist":city};
-                    localStorage.setItem("weatherDash" + 0, JSON.stringify(storeObj));
-                    $("#city-list").prepend('<li class="list-group-item city-searched">' + city + '</li>');
+                    // Save the cities array items into local storage
+                    localStorage.setItem("storedSearchHistory", JSON.stringify(cities));
+
+                    // Print list of cities to the page
+                     $("#city-list").prepend('<li class="list-group-item city-searched">' + city + '</li>');
                
 
             });
